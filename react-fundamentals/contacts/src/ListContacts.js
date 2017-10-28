@@ -22,36 +22,38 @@ class ListContacts extends Component {
     } = this.props
     return (
       <div className="list-contacts">
-        <input
-          type="text"
-          className="search-contacts"
-          placeholder="Search contacts"
-          value={this.state.query}
-          onChange={(event) => this.updateQuery(event.target.value)}
-        />
+        <div className="list-contacts-top">
+          <input
+            type="text"
+            className="search-contacts"
+            placeholder="Search contacts"
+            value={this.state.query}
+            onChange={(event) => this.updateQuery(event.target.value)}
+          />
+        </div>
         <ol className="contact-list">
           {contacts.map(contact =>
             <li
               key={contact.id}
               className="contact-list-item"
-              >
-                <div
-                  className="contact-avatar"
-                  style={{ backgroundImage: `url(${contact.avatarURL})`}}
-                />
-                <div className="contact-details">
-                  <p>{contact.name}</p>
-                  <p>{contact.email}</p>
-                </div>
-                <button
-                  className="contact-remove"
-                  onClick={() => {onRemoveContact(contact)}}
-                  >
-                    Remove
-                  </button>
-                </li>
-              )}
-            </ol>
+            >
+              <div
+                className="contact-avatar"
+                style={{ backgroundImage: `url(${contact.avatarURL})`}}
+              />
+              <div className="contact-details">
+                <p>{contact.name}</p>
+                <p>{contact.email}</p>
+              </div>
+              <button
+                className="contact-remove"
+                onClick={() => {onRemoveContact(contact)}}
+                >
+                  Remove
+                </button>
+              </li>
+            )}
+        </ol>
       </div>
     )
  }
