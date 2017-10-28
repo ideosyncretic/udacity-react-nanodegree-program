@@ -20,7 +20,7 @@ class ListContacts extends Component {
   render () {
     let showingContacts
     if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+      const match = new RegExp(escapeRegExp(this.state.query), 'i') // the escape is to treat special characters as normal strings instead of regex helpers, 'i' means not case sensitive
       showingContacts = this.props.contacts.filter((contact) =>   match.test(contact.name)
       )
     } else {
