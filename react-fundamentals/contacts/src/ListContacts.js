@@ -18,9 +18,12 @@ class ListContacts extends Component {
   }
 
   render () {
+    const { onRemoveContact } = this.props
+    const { query } = this.state
+
     let showingContacts
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i') // the escape is to treat special characters as normal strings instead of regex helpers, 'i' means not case sensitive
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i') // the escape is to treat special characters as normal strings instead of regex helpers, 'i' means not case sensitive
       showingContacts = this.props.contacts.filter((contact) =>   match.test(contact.name)
       )
     } else {
@@ -29,9 +32,6 @@ class ListContacts extends Component {
 
     showingContacts.sort(sortBy('name'))
 
-    const {
-      onRemoveContact
-    } = this.props
     return (
       <div className="list-contacts">
         <div className="list-contacts-top">
@@ -39,7 +39,7 @@ class ListContacts extends Component {
             type="text"
             className="search-contacts"
             placeholder="Search contacts"
-            value={this.state.query}
+            value={query}
             onChange={(event) => this.updateQuery(event.target.value)}
           />
         </div>
