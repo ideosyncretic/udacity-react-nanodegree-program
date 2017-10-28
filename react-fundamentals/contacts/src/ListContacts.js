@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ListContacts = (contacts) => {
+const ListContacts = ({ contacts, onRemoveContact }) => {
   return (
     <ol className="contact-list">
-      {this.props.contacts.map(contact =>
+      {contacts.map(contact =>
         <li key={contact.id} className="contact-list-item">
           <div
             className="contact-avatar"
@@ -16,7 +16,7 @@ const ListContacts = (contacts) => {
           </div>
           <button
             className="contact-remove"
-            onClick={() => {this.props.onRemoveContact(contact)}}
+            onClick={() => {onRemoveContact(contact)}}
           >
             Remove
           </button>
@@ -26,7 +26,7 @@ const ListContacts = (contacts) => {
   )
 }
 
-ListContacts.propTypes = {
+ListContacts.PropTypes = {
   contacts: PropTypes.array.irRequired,
   onRemoveContact: PropTypes.func.isRequired
 }
