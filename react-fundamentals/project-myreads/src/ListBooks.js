@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Bookshelf from './Bookshelf'
 
-const ListBooks = () => {
+const ListBooks = ({ currentlyReading, wantToRead, read }) => {
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -10,9 +10,9 @@ const ListBooks = () => {
       </div>
       <div className="list-books-content">
         <div>
-          <Bookshelf title="Currently Reading" />
-          <Bookshelf title="Want to Read" />
-          <Bookshelf title="Read" />
+          <Bookshelf title="Currently Reading" books={currentlyReading} />
+          <Bookshelf title="Want to Read" books={wantToRead} />
+          <Bookshelf title="Read" books={read} />
         </div>
       </div>
       <div className="open-search">
