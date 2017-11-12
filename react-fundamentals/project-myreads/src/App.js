@@ -7,22 +7,28 @@ import './App.css'
 
 class BooksApp extends Component {
   state = {
-    currentlyReading: [],
-    wantToRead: [],
-    read: []
+    books: []
+  }
+
+  componentDidMount () {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
+    })
   }
 
   handleUpdate (book, shelf) {
-    BooksAPI.update(book, shelf).then(
-      // TODO update state here
-    )
+    console.log(book, shelf)
+    // BooksAPI.update(book, shelf).then(
+    //   response => console.log(response)
+    // )
   }
 
   render() {
+    const { books } = this.state
     return (
       <div>
-        <Route exact path="/" render={() => <ListBooks {...this.state}/>} />
-        <Route exact path="/search" component={Search} />
+        <Route exact path="/" render={() => <ListBooks books={books} handleUpdate={this.handleUpdate.bind(this)} />} />
+        <Route exact path="/search" render={() => <Search handleUpdate={this.handleUpdate.bind(this)} />} />
       </div>
     )
   }
