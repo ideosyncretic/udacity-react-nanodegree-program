@@ -4,10 +4,16 @@ class Book extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: this.props.book.shelf
+      value: ""
     }
 
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentWillMount () {
+    this.setState({
+      value: this.props.book.shelf
+    })
   }
 
   handleChange(event) {
