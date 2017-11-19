@@ -30,35 +30,44 @@ class BooksApp extends Component {
     })
   }
 
+  mapIdToBook = (shelf, booksWithShelves, book) => {
+    return shelf.map(
+      id => {
+        let bookObject= find(booksWithShelves, matchesProperty('id', id))
+        // if this book is newly added
+        if (!bookObject) {bookObject = book}
+        return bookObject
+      }
+    )
+  }
+
   handleUpdate = (book, newShelf) => {
     BooksAPI.update(book, newShelf).then(
       (response) => {
         let { currentlyReading, wantToRead, read } = response
         this.setState(prevState => {
-          // in each array, convert book IDs to book objects
-          currentlyReading = currentlyReading.map(id => find(prevState.books, matchesProperty('id', id)))
-          wantToRead = wantToRead.map(id => find(prevState.books, matchesProperty('id', id)))
-          read = read.map(id => find(prevState.books, matchesProperty('id', id)))
+          // convert book IDs to book objects
+          currentlyReading = this.mapIdToBook(currentlyReading, prevState.books, book)
+          wantToRead = this.mapIdToBook(wantToRead, prevState.books, book)
+          read = this.mapIdToBook(read, prevState.books, book)
 
-          // find the book and update the shelf manually
+          // find the book in shelf, and update the shelf property manually
           if (newShelf === "currentlyReading") {
-            // get position of book
             const bookIndex = currentlyReading.findIndex(i => i.id === book.id)
             currentlyReading[bookIndex].shelf = newShelf
           }
           if (newShelf === "wantToRead") {
-            // get position of book
             const bookIndex = wantToRead.findIndex(i => i.id === book.id)
             wantToRead[bookIndex].shelf = newShelf
           }
           if (newShelf === "read") {
-            // get position of book
             const bookIndex = read.findIndex(i => i.id === book.id)
             read[bookIndex].shelf = newShelf
           }
 
           // return final shelf arrays, one of which has the manually updated book
           return ({
+            books: [...currentlyReading, ...wantToRead, ...read],
             currentlyReading,
             wantToRead,
             read,

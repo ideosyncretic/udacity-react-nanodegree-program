@@ -12,7 +12,7 @@ class Book extends Component {
 
   componentWillMount () {
     this.setState({
-      value: this.props.book.shelf
+      value: this.props.book.shelf ? this.props.book.shelf : 'none'
     })
   }
 
