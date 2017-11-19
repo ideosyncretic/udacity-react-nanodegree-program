@@ -32,10 +32,19 @@ class Book extends Component {
       imageLinks
     } = book
 
+    const bookCoverStyle = imageLinks
+    ? { width: 128, height: 193, backgroundImage: `url(${imageLinks.thumbnail})` }
+    : { width: 128, height: 193, background: `lightgrey` }
+
+
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${imageLinks.thumbnail})` }}></div>
+          <div
+            className="book-cover"
+            style={bookCoverStyle}
+          >
+          </div>
           <div className="book-shelf-changer">
             <select value={value} onChange={this.handleChange}>
               <option value="none" disabled>Move to...</option>
@@ -46,8 +55,10 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">{title}</div>
-        <div className="book-authors">{authors.map(author => author)}</div>
+        <div className="book-title">{title ? title : "(No title)"}</div>
+        <div className="book-authors">
+          {authors ? authors.join(', ') : null}
+        </div>
       </div>
     )
   }

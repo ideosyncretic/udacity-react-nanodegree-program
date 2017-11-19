@@ -5,7 +5,6 @@ import Book from './Book'
 
 class Search extends Component {
   state = {
-    searchQuery: null,
     books: []
   }
 
@@ -18,11 +17,11 @@ class Search extends Component {
   handleSearch = (query) => {
     if (query.length) {
       BooksAPI.search(query, 20).then(books => this.setState({ books }))
-    } else return
+    } else this.setState({ books: [] })
   }
 
   render () {
-    const { searchQuery, books } = this.state
+    const { books } = this.state
     const { handleUpdate } = this.props
     return (
       <div className="search-books">
