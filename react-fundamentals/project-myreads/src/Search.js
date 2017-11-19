@@ -8,12 +8,6 @@ class Search extends Component {
     books: []
   }
 
-  // componentDidMount () {
-  //   BooksAPI.getAll().then((books) => {
-  //     this.setState({ books })
-  //   })
-  // }
-
   handleSearch = (query) => {
     if (query.length) {
       BooksAPI.search(query, 20).then(books => this.setState({ books }))
@@ -40,7 +34,7 @@ class Search extends Component {
               {
                 books.length
                 ? books.map(book => <li key={book.id}><Book  book={book} handleUpdate={handleUpdate} /></li>)
-                : "*twiddles thumbs*"
+                : "Start searching to see some books!"
               }
             </ol>
           </div>
