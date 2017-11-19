@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ListBooks from './ListBooks'
 import Search from './Search'
 import { Route } from 'react-router-dom'
+import { SHELF_CURRENTLY_READING, SHELF_WANT_TO_READ, SHELF_READ } from './constants'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import find from 'lodash/find'
@@ -18,9 +19,9 @@ class BooksApp extends Component {
   componentDidMount () {
     BooksAPI.getAll().then((books) => {
       // get arrays of book objects
-      const currentlyReading = books.filter(book => book.shelf === "currentlyReading")
-      const wantToRead = books.filter(book => book.shelf === "wantToRead")
-      const read = books.filter(book => book.shelf === "read")
+      const currentlyReading = books.filter(book => book.shelf === SHELF_CURRENTLY_READING)
+      const wantToRead = books.filter(book => book.shelf === SHELF_WANT_TO_READ)
+      const read = books.filter(book => book.shelf === SHELF_READ)
       this.setState({
         books,
         currentlyReading,
@@ -52,15 +53,15 @@ class BooksApp extends Component {
           read = this.mapIdToBook(read, prevState.books, book)
 
           // find the book in shelf, and update the shelf property manually
-          if (newShelf === "currentlyReading") {
+          if (newShelf === SHELF_CURRENTLY_READING) {
             const bookIndex = currentlyReading.findIndex(i => i.id === book.id)
             currentlyReading[bookIndex].shelf = newShelf
           }
-          if (newShelf === "wantToRead") {
+          if (newShelf === SHELF_WANT_TO_READ) {
             const bookIndex = wantToRead.findIndex(i => i.id === book.id)
             wantToRead[bookIndex].shelf = newShelf
           }
-          if (newShelf === "read") {
+          if (newShelf === SHELF_READ) {
             const bookIndex = read.findIndex(i => i.id === book.id)
             read[bookIndex].shelf = newShelf
           }
