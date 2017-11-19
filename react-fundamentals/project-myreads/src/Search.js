@@ -16,13 +16,9 @@ class Search extends Component {
   // }
 
   handleSearch = (query) => {
-    BooksAPI.search(query, 20).then(
-      (books) => {
-        this.setState({
-          books
-        })
-      }
-    )
+    if (query.length) {
+      BooksAPI.search(query, 20).then(books => this.setState({ books }))
+    } else return
   }
 
   render () {
