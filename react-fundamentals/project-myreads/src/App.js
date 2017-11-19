@@ -30,7 +30,7 @@ class BooksApp extends Component {
     })
   }
 
-  handleUpdate (book, newShelf) {
+  handleUpdate = (book, newShelf) => {
     BooksAPI.update(book, newShelf).then(
       (response) => {
         let { currentlyReading, wantToRead, read } = response
@@ -71,8 +71,16 @@ class BooksApp extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" render={() => <ListBooks {...this.state} handleUpdate={this.handleUpdate.bind(this)} />} />
-        <Route exact path="/search" render={() => <Search handleUpdate={this.handleUpdate.bind(this)} />} />
+        <Route
+          exact
+          path="/"
+          render={() => <ListBooks {...this.state} handleUpdate={this.handleUpdate} />}
+        />
+        <Route
+          exact
+          path="/search"
+          render={() => <Search handleUpdate={this.handleUpdate} />}
+        />
       </div>
     )
   }
