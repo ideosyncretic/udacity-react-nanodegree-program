@@ -8,38 +8,49 @@ class Search extends Component {
     books: []
   }
 
-  handleSearch = (query) => {
+  handleSearch = query => {
     if (query.length) {
       BooksAPI.search(query, 20).then(books => this.setState({ books }))
     } else this.setState({ books: [] })
   }
 
-  render () {
+  render() {
     const { books } = this.state
-    const { handleUpdate } = this.props
+    const { handleUpdate, checkShelf } = this.props
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link className="close-search" to="/">Close</Link>
+          <Link className="close-search" to="/">
+            Close
+          </Link>
           <div className="search-books-input-wrapper">
-              <input
-                type="text"
-                placeholder="Search by title or author"
-                onChange={(e) => {this.handleSearch(e.target.value)}}
-              />
-            </div>
-          </div>
-          <div className="search-books-results">
-            <ol className="books-grid">
-              {
-                books.length
-                ? books.map(book => <li key={book.id}><Book  book={book} handleUpdate={handleUpdate} /></li>)
-                : "Start searching to see some books!"
-              }
-            </ol>
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              onChange={e => {
+                this.handleSearch(e.target.value)
+              }}
+              autoFocus
+            />
           </div>
         </div>
-      )
+        <div className="search-books-results">
+          <ol className="books-grid">
+            {books.length
+              ? books.map(book => (
+                  <li key={book.id}>
+                    <Book
+                      book={book}
+                      shelf={checkShelf(book.id)}
+                      handleUpdate={handleUpdate}
+                    />
+                  </li>
+                ))
+              : 'Start searching to see some books!'}
+          </ol>
+        </div>
+      </div>
+    )
   }
 }
 

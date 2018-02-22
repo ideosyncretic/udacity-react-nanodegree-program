@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import Bookshelf from './Bookshelf'
 
 class ListBooks extends Component {
-  render () {
+  render() {
     const {
       handleUpdate,
+      checkShelf,
       currentlyReading,
       wantToRead,
       read
@@ -21,20 +22,24 @@ class ListBooks extends Component {
               title="Currently Reading"
               books={currentlyReading}
               handleUpdate={handleUpdate}
+              checkShelf={checkShelf}
             />
             <Bookshelf
               title="Want to Read"
               books={wantToRead}
-              handleUpdate={handleUpdate} />
+              handleUpdate={handleUpdate}
+              checkShelf={checkShelf}
+            />
             <Bookshelf
               title="Read"
               books={read}
               handleUpdate={handleUpdate}
+              checkShelf={checkShelf}
             />
           </div>
         </div>
         <div className="open-search">
-          <Link to='/search'>Add a book</Link>
+          <Link to="/search">Add a book</Link>
         </div>
       </div>
     )
